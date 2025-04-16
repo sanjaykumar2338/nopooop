@@ -266,8 +266,6 @@
 
     });
 
-
-
     tinymce.init({
           selector: 'textarea#description',
           extended_valid_elements: 'span[class|style]', 

@@ -46,6 +46,12 @@ class HomeController extends Controller
         return view('frontend.pages.home')->with('page', $homepage);
     }
 
+    public function displaypage($slug)
+    {
+        $page = Pages::where('slug', $slug)->firstOrFail();
+        return view('frontend.pages.othercontent', compact('page'));
+    }
+
     public function contactus() {
         $contact = Pages::where('slug', 'contact-us')->first();
         return view('frontend.pages.contactus')->with('page', $contact);

@@ -128,6 +128,9 @@ Route::group(['middleware' => 'check.auth'], function () {
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/p/{slug}', [App\Http\Controllers\HomeController::class, 'displaypage']);
+
+
 Route::post('/save_review', [App\Http\Controllers\HomeController::class, 'save_review'])->name('save_review');
 Route::get('/get_images', [App\Http\Controllers\HomeController::class, 'get_images'])->name('get_images');
 Route::get('/updateImageNames', [App\Http\Controllers\HomeController::class, 'updateImageNames'])->name('updateImageNames');

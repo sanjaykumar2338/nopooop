@@ -2,15 +2,8 @@
 @section('meta_description', $page->meta_description)
 @section('meta_keywords', $page->meta_keywords)
 
-@extends('frontend.layout.homepagenew')
+@extends('frontend.layout.otherpage')
 @section('content')
-
-    <!-- ========== Start Customers section ========== -->
-    @php
-        use App\Models\Pages;
-        $page = Pages::where('slug', 'homepage')->first();
-    @endphp
-
     @if ($page)
         {!! $page->description !!}
     @else
