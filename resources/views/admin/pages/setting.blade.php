@@ -44,28 +44,46 @@
 
                 <div class="mb-3 mt-3">
                   <label for="product_name">Phone:</label>
-                 <input type="text" maxlength="13" class="form-control" value="{{$rec?->phone}}" name="phone" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 13);">
-                </div>
-
-                <div class="mb-3 mt-3" style="display: none;">
-                  <label for="image">Logo:</label>
-                  <input type="file" class="form-control" id="logo" name="logo">
+                 <input type="text" maxlength="13" class="form-control" value="{{$rec?->phone}}" name="phone">
                 </div>
 
                 <div class="mb-3 mt-3">
-                  <label for="product_name">Email Content:</label>
-                  <textarea name="email_content" cols="2" id="email_content" class="form-control">{{$rec?->email_content}}</textarea>
+                    <label for="image">Logo:</label>
+                    <input type="file" class="form-control" id="logo" name="logo">
+
+                    @if (!empty($rec?->logo))
+                        <div class="mt-2">
+                            <a href="{{ asset($rec->logo) }}" target="_blank">View Existing Logo</a><br>
+                            <img src="{{ asset($rec->logo) }}" alt="Current Logo" style="max-height: 60px; margin-top: 5px;">
+                        </div>
+                    @endif
                 </div>
 
                 <div class="mb-3 mt-3">
-                  <label for="product_name">SMS Content:</label>
-                  <textarea name="sms_content" cols="2" id="sms_content" class="form-control">{{$rec?->sms_content}}</textarea>
+                  <label for="facebook">Facebook URL:</label>
+                  <input type="url" class="form-control" id="facebook" name="facebook" placeholder="https://facebook.com/yourpage" value="{{ $rec?->facebook }}">
                 </div>
 
                 <div class="mb-3 mt-3">
-                  <label for="product_name">Email Content Background Color:</label>
-                  <input type="color" class="form-control" value="{{$rec?->background_color}}" name="background_color">
+                  <label for="twitter">Twitter URL:</label>
+                  <input type="url" class="form-control" id="twitter" name="twitter" placeholder="https://twitter.com/yourprofile" value="{{ $rec?->twitter }}">
                 </div>
+
+                <div class="mb-3 mt-3">
+                  <label for="instagram">Instagram URL:</label>
+                  <input type="url" class="form-control" id="instagram" name="instagram" placeholder="https://instagram.com/yourhandle" value="{{ $rec?->instagram }}">
+                </div>
+
+                <div class="mb-3 mt-3">
+                  <label for="linkedin">LinkedIn URL:</label>
+                  <input type="url" class="form-control" id="linkedin" name="linkedin" placeholder="https://linkedin.com/company/yourcompany" value="{{ $rec?->linkedin }}">
+                </div>
+
+                <div class="mb-3 mt-3">
+                  <label for="youtube">YouTube URL:</label>
+                  <input type="url" class="form-control" id="youtube" name="youtube" placeholder="https://youtube.com/yourchannel" value="{{ $rec?->youtube }}">
+                </div>
+
          
                 <button type="submit" class="btn btn-primary">Update</button>
               </form>

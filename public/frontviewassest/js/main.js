@@ -41,3 +41,17 @@
             }
         ]
     });
+
+document.addEventListener('DOMContentLoaded', function () {
+const subTitles = document.querySelectorAll('.sub-title');
+
+subTitles.forEach(function (el) {
+    // Check if it already has a span to avoid double-wrapping
+    if (!el.querySelector('span')) {
+    const span = document.createElement('span');
+    span.innerHTML = el.innerHTML;
+    el.innerHTML = '';
+    el.appendChild(span);
+    }
+});
+});

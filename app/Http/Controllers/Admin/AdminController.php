@@ -56,28 +56,41 @@ class AdminController extends Controller{
         return view('admin.pages.contacts')->with('activeLink','contacts')->with('rec',$rec);
     }
 
-    public function setting_save(Request $request){
-        //echo "<pre>"; print_r($request->all()); die();
+    public function setting_save(Request $request)
+    {
         $rec = Setting::count();
-        if($rec){
+
+        if ($rec) {
             $rec = Setting::first();
-            $rec->email = $request->email;
-            $rec->phone = $request->phone;
-            $rec->email_content = $request->email_content;
-            $rec->sms_content = $request->sms_content;
-            $rec->background_color = $request->background_color;
-            $rec->save();
-        }else{
-            $setting = new Setting();
-            $setting->email = $request->email;
-            $setting->phone = $request->phone;
-            $setting->email_content = $request->email_content;
-            $setting->sms_content = $request->sms_content;
-            $rec->background_color = $request->background_color;
-            $setting->save();
+        } else {
+            $rec = new Setting();
         }
 
-        return redirect('/admin/setting')->with('success');
+        $rec->email = $request->email;
+        $rec->phone = $request->phone;
+        $rec->email_content = $request->email_content;
+        $rec->sms_content = $request->sms_content;
+        $rec->background_color = $request->background_color;
+
+        // Social Links
+        $rec->facebook = $request->facebook;
+        $rec->twitter = $request->twitter;
+        $rec->instagram = $request->instagram;
+        $rec->linkedin = $request->linkedin;
+        $rec->youtube = $request->youtube;
+
+        // Handle Logo Upload
+        if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/uploads/logos', $filename);
+
+            // Save the path (you can customize how it's saved depending on your use-case)
+            $rec->logo = 'storage/uploads/logos/' . $filename;
+        }
+
+        $rec->save();
+        return redirect('/admin/setting')->with('success', 'Settings updated successfully.');
     }
 
     public function order(){

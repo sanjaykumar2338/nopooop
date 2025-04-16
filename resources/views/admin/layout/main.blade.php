@@ -270,6 +270,8 @@
 
     tinymce.init({
           selector: 'textarea#description',
+          extended_valid_elements: 'span[class|style]', 
+          valid_elements: '*[*]',
           plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons',
           imagetools_cors_hosts: ['picsum.photos'],
           menubar: 'file edit view insert format tools table help',

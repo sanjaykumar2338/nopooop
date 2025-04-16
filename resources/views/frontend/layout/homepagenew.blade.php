@@ -22,9 +22,9 @@
          <div class="container">
             <div class="main-bx">
                <div class="left-bx">
-                  <a href="tel:646-806-2511">
-                  <span><i class="fa-solid fa-phone-volume"></i></span>
-                  646-806-2511
+                  <a href="tel:{{ getSetting('phone') }}">
+                     <i class="fa-solid fa-phone-volume"></i>
+                     {{ getSetting('phone') }}
                   </a>
                </div>
                <div class="right-bx">
@@ -46,21 +46,34 @@
       <header class="header" id="header" data-aos="zoom-in" data-aos-duration="1000">
          <div class="container">
             <nav>
-               <div class="logo-bx">
-                  <a href="/."><img src="{{url('/')}}/frontviewassest/images/logo.png" alt=""></a>
-                  <button class="mobile-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                     aria-controls="offcanvasRight"><i class="fa-solid fa-bars"></i></button>
+            <div class="logo-bx">
+                  @php
+                     $logo = getSetting('logo');
+                     $logoPath = $logo && file_exists(public_path('storage/' . $logo)) 
+                           ? asset('storage/' . $logo) 
+                           : url('/frontviewassest/images/logo.png');
+                  @endphp
+
+                  <a href="{{ url('/') }}">
+                     <img src="{{ $logoPath }}" alt="Logo">
+                  </a>
+                  
+                  <button class="mobile-menu" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                     <i class="fa-solid fa-bars"></i>
+                  </button>
                </div>
+
                <div class="right-nav">
                   <div class="root-nav">
-                     <ul>
-                        <li><a href="#"> Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Areas</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact Us </a></li>
-                     </ul>
+                  <ul>
+                     @foreach(getMenuItems('header') as $item)
+                        <li>
+                              <a href="{{ $item->type === 'page' && $item->page ? url('/p/' . $item->page->slug) : $item->url }}">
+                                 {{ $item->label }}
+                              </a>
+                        </li>
+                     @endforeach
+                  </ul>
                   </div>
                   <div class="get-btn">
                      <a href="#" class="common-button">Get a Quote!</a>
@@ -69,25 +82,58 @@
             </nav>
          </div>
       </header>
+      <!-- ========== End header ========== -->
+
+      <!-- ========== Start mobile-menu ========== -->
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+         <div class="offcanvas-header">
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+         </div>
+         <div class="offcanvas-body">
+            <ul>
+               @foreach(getMenuItems('header') as $item)
+                  <li>
+                        <a href="{{ $item->type === 'page' && $item->page ? url('/p/' . $item->page->slug) : $item->url }}">
+                           {{ $item->label }}
+                        </a>
+                  </li>
+               @endforeach
+               <a href="#" class="common-button">Get a Quote!</a>
+            </ul>
+         </div>
+      </div>
+      
+      <!-- ========== End mobile-menu ========== -->
       @yield('content')
+
       <footer>
          <div class="container">
             <div class="row">
                <div class="col-lg-3">
-                  <div class="footer-de-bx vibe-zone">
+               <div class="footer-de-bx vibe-zone">
                      <div class="img-bx">
-                        <img src="{{url('/')}}/frontviewassest/images/logo.png" alt="">
+                        @php
+                              $logo = getSetting('logo');
+                        @endphp
+
+                        @if($logo && file_exists(public_path('storage/' . $logo)))
+                              <img src="{{ asset('storage/' . $logo) }}" alt="Logo">
+                        @else
+                              <img src="{{ url('/') }}/frontviewassest/images/logo.png" alt="Default Logo">
+                        @endif
                      </div>
+
                      <div class="tex-bx">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad veritatis, earum sed labore
-                           non .
-                        </p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad veritatis, earum sed labore non.</p>
+
+                        @if(getSetting('phone'))
                         <div class="tel">
-                           <a href="tel:646-806-2511">
-                           <i class="fa-solid fa-phone-volume"></i>
-                           646-806-2511
-                           </a>
+                              <a href="tel:{{ getSetting('phone') }}">
+                                 <i class="fa-solid fa-phone-volume"></i>
+                                 {{ getSetting('phone') }}
+                              </a>
                         </div>
+                        @endif
                      </div>
                   </div>
                </div>
@@ -97,13 +143,13 @@
                         <h2>Website Links</h2>
                      </div>
                      <ul>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Home</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Residential Services</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Areas We Serve</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Pricing</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Gift Cards</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Our Story</a></li>
-                        <li><a href="#"><i class="fa-solid fa-angles-right"></i>Contact Us</a></li>
+                        @foreach(getMenuItems('website-links') as $item)
+                           <li>
+                                 <a href="{{ $item->type === 'page' && $item->page ? url('/p/' . $item->page->slug) : $item->url }}">
+                                    <i class="fa-solid fa-angles-right"></i> {{ $item->label }}
+                                 </a>
+                           </li>
+                        @endforeach
                      </ul>
                   </div>
                </div>
@@ -114,12 +160,13 @@
                         </h2>
                      </div>
                      <ul>
-                        <li><a href="#">Shop Page</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Scooping Bag</a></li>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        @foreach(getMenuItems('support-links') as $item)
+                           <li>
+                                 <a href="{{ $item->type === 'page' && $item->page ? url('/p/' . $item->page->slug) : $item->url }}">
+                                    {{ $item->label }}
+                                 </a>
+                           </li>
+                        @endforeach
                      </ul>
                   </div>
                </div>
@@ -138,16 +185,37 @@
                         </h2>
                      </div>
                      <ul class="social-links">
-                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                        <li><a href="#"> <i class="fa-brands fa-x-twitter"></i></a></li>
+                        @if(getSetting('facebook'))
+                           <li><a href="{{ getSetting('facebook') }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        @endif
+
+                        @if(getSetting('instagram'))
+                           <li><a href="{{ getSetting('instagram') }}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                        @endif
+
+                        @if(getSetting('twitter'))
+                           <li><a href="{{ getSetting('twitter') }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
+                        @endif
+
+                        @if(getSetting('linkedin'))
+                           <li><a href="{{ getSetting('linkedin') }}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                        @endif
+
+                        @if(getSetting('youtube'))
+                           <li><a href="{{ getSetting('youtube') }}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+                        @endif
                      </ul>
                   </div>
                </div>
             </div>
          </div>
          <div class="copyright">
-            <p>Copyright © {{date('Y')}}, All Rights Reserved | Privacy Policy</p>
+            <p>
+               Copyright © {{ date('Y') }}, All Rights Reserved | 
+               <a style="    text-decoration: none;
+    color: #000000;
+}" href="{{ url('/p/privacy-policy') }}">Privacy Policy</a>
+            </p>
          </div>
       </footer>
       <script src="{{url('/')}}/frontviewassest/js/jquery-3.6.0.min.js"></script>

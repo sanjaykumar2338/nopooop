@@ -1,5 +1,8 @@
 <?php
 // FileHelper.php
+use App\Models\Menu;
+use App\Models\MenuItem;
+use App\Models\Setting;
 
 if (!function_exists('fileToUrl')) {
     function fileToUrl($filePath)
@@ -26,5 +29,35 @@ if (!function_exists('fileExist')) {
         }
 
         return $fileExists;
+    }
+}
+
+if (!function_exists('getMenuItems')) {
+    function getMenuItems($slug = 'header')
+    {
+        $menu = Menu::where('slug', $slug)->first();
+
+        if (!$menu) {
+            return [];
+        }
+
+        return MenuItem::where('menu_id', $menu->id)
+            ->orderBy('order', 'asc')
+            ->get();
+    }
+}
+
+if (!function_exists('getSetting')) {
+    function getSetting($key = null)
+    {
+        static $settings = null;
+
+        if (!$settings) {
+            $settings = Setting::first();
+        }
+
+        if (!$settings) return null;
+
+        return $key ? $settings->$key ?? null : $settings;
     }
 }

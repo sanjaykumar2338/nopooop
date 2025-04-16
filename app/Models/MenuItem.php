@@ -13,9 +13,9 @@ class MenuItem extends Model
     {
         return $this->belongsTo(Menu::class);
     }
-
+    
     public function page()
     {
-        return $this->belongsTo(Pages::class);
+        return $this->belongsTo(\App\Models\Pages::class, 'page_id');
     }
 }
