@@ -11,10 +11,10 @@
                     <div class="right-text-bx">
                         <div class="section-title">
                             <h2>
-                                @if ($page!=='homepage')
+                                @if ($page!=='Homepage')
                                     {!! $page->title !!}
                                 @else
-                                    <p>No homepage content found.</p>
+                                    <p>No content found.</p>
                                 @endif
                             </h2>
                         </div>
