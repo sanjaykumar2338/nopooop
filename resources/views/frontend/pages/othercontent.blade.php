@@ -13,8 +13,6 @@
                             <h2>
                                 @if ($page && $page->title!="Homepage")
                                     {!! $page->title !!}
-                                @else
-                                    <p>No content found.</p>
                                 @endif
                             </h2>
                         </div>
