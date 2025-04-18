@@ -11,7 +11,7 @@
                     <div class="right-text-bx">
                         <div class="section-title">
                             <h2>
-                                @if ($page)
+                                @if ($page!=='homepage')
                                     {!! $page->title !!}
                                 @else
                                     <p>No homepage content found.</p>
