@@ -38,7 +38,7 @@ class PagesController extends Controller
 
     public function index()
     {
-        $pages = Pages::paginate(8);
+        $pages = Pages::where('is_deleted', 0)->paginate(8);
         return view('admin.pages.page.index')->with('pages', $pages)->with('activeLink', 'pages');
     }
 
@@ -210,14 +210,9 @@ class PagesController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-
-
-        //delete image from local folder "/photo/"
-        //Storage::delete($product->product_image);
-
-        //delete product title, description, amount and image from MySQL
-        $product = Pages::find($id);
-        $product->delete();
+        $page = Pages::find($id);
+        $page->is_deleted = 1;
+        $page->update();
         return redirect('/admin/pages')->with('delete', ' ');
     }
 }

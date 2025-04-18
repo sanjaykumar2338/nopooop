@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BlogReview;
 use App\Models\Pages;
 use App\Models\Plans;
+use App\Models\Blogs;
 use App\Models\Faqs;
 use App\Models\Contacts;
 use App\Models\PrintfulOrder;
@@ -48,8 +49,25 @@ class HomeController extends Controller
 
     public function displaypage($slug)
     {
-        $page = Pages::where('slug', $slug)->firstOrFail();
-        return view('frontend.pages.othercontent', compact('page'));
+        $page = Pages::where('slug', $slug)->where('is_deleted', 0)->firstOrFail();
+
+        if ($slug == 'faqs') {
+            $faq = Faqs::all();
+            return view('frontend.pages.faq', compact('page', 'faq'));
+        } elseif ($slug == 'blogs') {
+            $blogs = Blogs::latest()->paginate(5);
+            return view('frontend.pages.blog', compact('page', 'blogs'));
+        } elseif ($slug == 'contact-nopooopcom-fast-friendly-support-for-a-cleaner-yard') {
+            return view('frontend.pages.contactus', compact('page'));
+        } else {
+            return view('frontend.pages.othercontent', compact('page'));
+        }
+    }
+
+    public function displayblog($slug)
+    {
+        $page = Blogs::where('slug', $slug)->firstOrFail();
+        return view('frontend.pages.blogdetail', compact('page'));
     }
 
     public function contactus() {
@@ -281,9 +299,10 @@ class HomeController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'message' => 'required|string',
-            'g-recaptcha-response' => 'required',
+            //'g-recaptcha-response' => 'required',
         ]);
 
+        /*
         $recaptchaResponse = $request->input('g-recaptcha-response');
         $recaptchaSecret = env('RECAPTCHA_SECRET_KEY');
 
@@ -293,20 +312,19 @@ class HomeController extends Controller
         ]);
 
         $responseData = $response->json();
-
         if (!$responseData['success'] || $responseData['score'] < 0.5) {
             return back()->withErrors(['captcha' => 'ReCAPTCHA verification failed. Please try again.']);
         }
+        */
 
         // Create a new contact record
         Contacts::create($request->except('g-recaptcha-response'));
-
         // Send emails
-        Mail::to('hello@trackrak.com')->send(new ContactMail($request->all()));
-        Mail::to('sk963070@gmail.com')->send(new ContactMail($request->all()));
+        //Mail::to('hello@trackrak.com')->send(new ContactMail($request->all()));
+        //Mail::to('sk963070@gmail.com')->send(new ContactMail($request->all()));
 
         // Redirect back to the contact page with a success message
-        return redirect()->route('contactus')->with('success', 'We have received your message and will get back to you soon.');
+        return redirect()->back()->with('success', 'We have received your message and will get back to you soon.');
     }
 
 

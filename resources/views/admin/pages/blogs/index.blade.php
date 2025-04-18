@@ -108,7 +108,7 @@
                                             <td class="col-sm-3 col-md-3" style="text-align: right">
                                               <a href="/admin/blogs/remove/{{$blog->id}}" class="btn btn-danger">Remove</a>
                                               <a href="/admin/blogs/edit/{{$blog->id}}" class="btn btn-primary">EDIT</a>
-                                              <a href="/admin/blogs/moderate/{{$blog->id}}" class="btn btn-primary">Moderate</a>
+                                              <a href="/admin/blogs/moderate/{{$blog->id}}" class="btn btn-primary" style="display:none">Moderate</a>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -108,6 +108,27 @@
       </div>
       
       <!-- ========== End mobile-menu ========== -->
+      <!-- Success Message -->
+      @if(session('success'))
+         <div class="alert alert-success alert-dismissible fade show mt-4 ml-4" role="alert">
+            <strong>Success!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+      @endif
+
+      <!-- Validation Errors -->
+      @if($errors->any())
+         <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+            <strong>Whoops!</strong> There were some problems with your input.
+            <ul class="mb-0 mt-2">
+                  @foreach($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                  @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         </div>
+      @endif
+
       @yield('content')
 
       <footer>

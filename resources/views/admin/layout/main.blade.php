@@ -118,6 +118,20 @@
               </p>
             </a>
 
+            <a href="{{url('/admin/faq')}}" class="nav-link {{$activeLink=='faq'?'active':''}}">
+              <i class="nav-icon fas fa-solid fa-box"></i>
+              <p>
+                Faqs
+              </p>
+            </a>
+
+            <a href="{{url('/admin/blogs')}}" class="nav-link {{$activeLink=='blogs'?'active':''}}">
+              <i class="nav-icon fas fa-solid fa-box"></i>
+              <p>
+                Blogs
+              </p>
+            </a>
+
             <a href="{{url('/admin/menus')}}" class="nav-link {{$activeLink=='menus' || $activeLink=='menuitems'?'active':''}}">
               <i class="nav-icon fas fa-solid fa-box"></i>
               <p>

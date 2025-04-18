@@ -20,7 +20,7 @@ class MenuItemController extends Controller
     public function create($menuId)
     {
         $menu = Menu::findOrFail($menuId);
-        $pages = Pages::all();
+        $pages = Pages::where('is_deleted', 0)->get();
         return view('admin.pages.menu_items.create', compact('menu', 'pages'))->with('activeLink', 'pages');
     }
 
@@ -49,7 +49,7 @@ class MenuItemController extends Controller
     {
         $menu = Menu::findOrFail($menuId);
         $menuItem = MenuItem::findOrFail($id);
-        $pages = Pages::all();
+        $pages = Pages::where('is_deleted', 0)->get();
         return view('admin.pages.menu_items.edit', compact('menu', 'menuItem', 'pages'))->with('activeLink', 'pages');
     }
 

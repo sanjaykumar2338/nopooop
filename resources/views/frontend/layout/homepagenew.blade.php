@@ -4,9 +4,9 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      <title>{{ $page->meta_title ?? 'Default Title' }}</title>
-      <meta name="description" content="{{ $page->meta_description ?? 'Default description' }}">
-      <meta name="keywords" content="{{ $page->meta_keywords ?? 'default, keywords' }}">
+      <title>{{ $page->meta_title ?? env('APP_NAME') }}</title>
+      <meta name="description" content="{{ $page->meta_description ?? '' }}">
+      <meta name="keywords" content="{{ $page->meta_keywords ?? '' }}">
 
       <link rel="stylesheet" href="{{url('/')}}/frontviewassest/css/style.css">
       <link rel="stylesheet" href="{{url('/')}}/frontviewassest/css/bootstrap.min.css">
