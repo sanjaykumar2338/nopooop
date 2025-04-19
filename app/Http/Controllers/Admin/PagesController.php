@@ -195,7 +195,7 @@ class PagesController extends Controller
         }
 
         // Save the product
-        $blog->slug = $slug;
+        //$blog->slug = $slug;
         $blog->update();
         return redirect('/admin/pages')->with('success');
     }

@@ -51,12 +51,7 @@
                   <label for="image">Feature Image:</label>
                   <input type="file" class="form-control" id="feature_image" name="feature_image">
                 </div>
-
-                <div class="mb-3 mt-3">
-                  <label for="image">Blog Image:</label>
-                  <input type="file" class="form-control" id="blog_image" name="blog_image">
-                </div>
-
+                
                 <div class="mb-3 mt-3">
                   <label for="meta_title">Meta Title:</label>
                   <input class="form-control" id="meta_title" rows="6" placeholder="Enter Meta Title" name="meta_title"></textarea>

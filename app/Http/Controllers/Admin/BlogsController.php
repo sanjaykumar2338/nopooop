@@ -60,55 +60,48 @@ class BlogsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'feature_image' => '',
-            'blog_image' => '',
-            'meta_title' => 'string|max:255',
-            'meta_description' => '',
-            'meta_keyword' => 'string|max:255'
-        ]);
-
-        // Handle image uploads
-        // $feature_image = $request->file('feature_image')->store('public/images');
-        // $blog_image = $request->file('blog_image')->store('public/images');
-
-        $feature_image = '';//$request->file('feature_image')->store('public/images');
-        $blog_image = ''; //$request->file('blog_image')->store('public/images');
-
-        // Save data to the database
-        $blog = new Blogs();
-        $blog->title = $request->input('title');
-        $blog->description = $request->input('description');
-        $blog->feature_image = $feature_image;
-        $blog->blog_image = $blog_image;
-        $blog->meta_title = $request->input('meta_title');
-        $blog->meta_description = $request->input('meta_description');
-        $blog->meta_keywords = $request->input('meta_keywords');
-
-        $slug = Str::slug($request->input('title'));
-        $existingSlug = Blogs::where('slug', $slug)->exists();
-
-        if ($existingSlug) {
-            $counter = 1;
-            do {
-                $newSlug = $slug . '-' . $counter;
-                $existingSlug = Blogs::where('slug', $newSlug)->exists();
-                $counter++;
-            } while ($existingSlug);
-            $slug = $newSlug;
-        }
-
-        // Save the blog
-        $blog->slug = $slug;
-        $blog->save();
-        return redirect('/admin/blogs')->with('success');
-    }
+         $this->validate($request, [
+             'title' => 'required|string|max:255',
+             'description' => 'required',
+             'feature_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+             'meta_title' => 'nullable|string|max:255',
+             'meta_description' => 'nullable|string',
+             'meta_keyword' => 'nullable|string|max:255'
+         ]);
+     
+         $feature_image = null;
+         if ($request->hasFile('feature_image')) {
+             $feature_image = $request->file('feature_image')->store('public/images');
+         }
+     
+         $blog = new Blogs();
+         $blog->title = $request->input('title');
+         $blog->description = $request->input('description');
+         $blog->feature_image = $feature_image;
+         $blog->meta_title = $request->input('meta_title');
+         $blog->meta_description = $request->input('meta_description');
+         $blog->meta_keywords = $request->input('meta_keywords');
+     
+         $slug = Str::slug($request->input('title'));
+         $existingSlug = Blogs::where('slug', $slug)->exists();
+     
+         if ($existingSlug) {
+             $counter = 1;
+             do {
+                 $newSlug = $slug . '-' . $counter;
+                 $existingSlug = Blogs::where('slug', $newSlug)->exists();
+                 $counter++;
+             } while ($existingSlug);
+             $slug = $newSlug;
+         }
+     
+         $blog->slug = $slug;
+         $blog->save();
+     
+         return redirect('/admin/blogs')->with('success', 'Blog created successfully');
+    } 
 
     /**
      * Display the specified resource.
@@ -144,42 +137,31 @@ class BlogsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //echo "<pre>"; print_r($request->all()); die;
         $blog = Blogs::find($id);
+
         $this->validate($request, [
             'title' => 'required|string|max:255',
             'description' => 'required',
-            'feature_image' => '',
-            'blog_image' => '',
-            'meta_title' => 'string|max:255',
-            'meta_description' => '',
-            'meta_keyword' => 'string|max:255'
+            'feature_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string',
+            'meta_keyword' => 'nullable|string|max:255'
         ]);
 
-        // Handle image uploads
-
         $feature_image = $blog->feature_image;
-        if ($request->file('feature_image')) {
+        if ($request->hasFile('feature_image')) {
             $feature_image = $request->file('feature_image')->store('public/images');
         }
 
-        $blog_image = $blog->blog_image;
-        if ($request->file('blog_image')) {
-            $blog_image = $request->file('blog_image')->store('public/images');
-        }
-
-        // Save data to the database          
-        //$blog = new Blogs();
         $blog->title = $request->input('title');
         $blog->description = $request->input('description');
-        $blog->blog_image = $blog_image;
         $blog->feature_image = $feature_image;
         $blog->meta_title = $request->input('meta_title');
         $blog->meta_description = $request->input('meta_description');
         $blog->meta_keywords = $request->input('meta_keywords');
 
         $slug = Str::slug($request->input('title'));
-        $existingSlug = Blogs::where('slug', $slug)->where('id','!=',$id)->exists();
+        $existingSlug = Blogs::where('slug', $slug)->where('id', '!=', $id)->exists();
 
         if ($existingSlug) {
             $counter = 1;
@@ -191,10 +173,10 @@ class BlogsController extends Controller
             $slug = $newSlug;
         }
 
-        // Save the product
         $blog->slug = $slug;
         $blog->update();
-        return redirect('/admin/blogs')->with('success');
+
+        return redirect('/admin/blogs')->with('success', 'Blog updated successfully');
     }
 
 

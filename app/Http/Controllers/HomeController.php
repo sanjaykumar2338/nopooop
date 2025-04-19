@@ -6,6 +6,7 @@ use App\Models\BlogReview;
 use App\Models\Pages;
 use App\Models\Plans;
 use App\Models\Blogs;
+use App\Models\Services;
 use App\Models\Faqs;
 use App\Models\Contacts;
 use App\Models\PrintfulOrder;
@@ -24,7 +25,7 @@ use App\Rules\ReCaptchaV3;
 use App\Models\Tracks;
 use App\Mail\SubscriptionSuccessful;
 use App\Mail\SubscriptionCancelled;
-
+use App\Models\NewsletterSubscription;
 
 class HomeController extends Controller
 {
@@ -47,6 +48,24 @@ class HomeController extends Controller
         return view('frontend.pages.home')->with('page', $homepage);
     }
 
+    public function subscribeNewsletter(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email|unique:newsletter_subscriptions,email',
+        ]);
+
+        \DB::table('newsletter_subscriptions')->insert([
+            'email' => $validated['email'],
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Thank you for subscribing!'
+        ]);
+    }
+
     public function displaypage($slug)
     {
         $page = Pages::where('slug', $slug)->where('is_deleted', 0)->firstOrFail();
@@ -57,6 +76,9 @@ class HomeController extends Controller
         } elseif ($slug == 'blogs') {
             $blogs = Blogs::latest()->paginate(5);
             return view('frontend.pages.blog', compact('page', 'blogs'));
+        } elseif ($slug == 'proudly-serving-south-carolina-your-local-dog-waste-removal-experts') {
+            $services = Services::latest()->get();
+            return view('frontend.pages.service', compact('page', 'services'));
         } elseif ($slug == 'contact-nopooopcom-fast-friendly-support-for-a-cleaner-yard') {
             return view('frontend.pages.contactus', compact('page'));
         } else {
@@ -68,6 +90,12 @@ class HomeController extends Controller
     {
         $page = Blogs::where('slug', $slug)->firstOrFail();
         return view('frontend.pages.blogdetail', compact('page'));
+    }
+
+    public function displayservice($slug)
+    {
+        $page = Services::where('slug', $slug)->firstOrFail();
+        return view('frontend.pages.servicedetail', compact('page'));
     }
 
     public function contactus() {

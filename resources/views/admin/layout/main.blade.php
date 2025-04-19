@@ -61,110 +61,115 @@
   <!-- /.navbar -->
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="{{url('/admin')}}" class="brand-link">
-      <img style="margin-left: -0.2rem;" src="{{url('/')}}/frontviewassest/images/logo.png" alt="Nopooop Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span style="font-size: 13PX;" class="brand-text font-weight-light">{{env('APP_NAME')}}</span>
-    </a>
+  <!-- Brand Logo -->
+  <a href="{{url('/admin')}}" class="brand-link">
+    <img style="margin-left: -0.2rem;" src="{{url('/')}}/frontviewassest/images/logo.png" alt="Nopooop Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span style="font-size: 13PX;" class="brand-text font-weight-light">{{env('APP_NAME')}}</span>
+  </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-          <li class="nav-item has-treeview menu-open">
-            <a href="{{url('/')}}" class="nav-link">
-              <i class="nav-icon fas fa-solid fa-globe"></i>
-              <p>
-                View Site
-                <i class="right fas"></i>
-              </p>
-            </a>
-          </li>
+        <li class="nav-item">
+          <a href="{{url('/')}}" class="nav-link">
+            <i class="nav-icon fas fa-globe"></i>
+            <p>View Site</p>
+          </a>
+        </li>
 
-          <li class="nav-item has-treeview menu-open">
-            <a href="{{url('/')}}/admin" class="nav-link {{$activeLink=='dashboard'?'active':''}}">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-                <i class="right fas"></i>
-              </p>
-            </a>
-          </li>
+        <li class="nav-item">
+          <a href="{{url('/admin')}}" class="nav-link {{$activeLink=='dashboard'?'active':''}}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
 
-          <li class="nav-item has-treeview">
-            <a href="{{url('/admin/customer')}}" class="nav-link {{$activeLink=='customer'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-user"></i>
-              <p>
-                Users
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/customer')}}" class="nav-link {{$activeLink=='customer'?'active':''}}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Users</p>
+          </a>
+        </li>
 
-            <a href="{{url('/admin/contacts')}}" class="nav-link {{$activeLink=='contacts'?'active':''}}">
-              <i class="nav-icon fas fa-envelope icon"></i>
-              <p>
-                Contacts
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/contacts')}}" class="nav-link {{$activeLink=='contacts'?'active':''}}">
+            <i class="nav-icon fas fa-address-book"></i>
+            <p>Contacts</p>
+          </a>
+        </li>
 
-            <a href="{{url('/admin/pages')}}" class="nav-link {{$activeLink=='pages'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-box"></i>
-              <p>
-                Pages
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/pages')}}" class="nav-link {{$activeLink=='pages'?'active':''}}">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>Pages</p>
+          </a>
+        </li>
 
-            <a href="{{url('/admin/faq')}}" class="nav-link {{$activeLink=='faq'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-box"></i>
-              <p>
-                Faqs
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/faq')}}" class="nav-link {{$activeLink=='faq'?'active':''}}">
+            <i class="nav-icon fas fa-question-circle"></i>
+            <p>Faqs</p>
+          </a>
+        </li>
 
-            <a href="{{url('/admin/blogs')}}" class="nav-link {{$activeLink=='blogs'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-box"></i>
-              <p>
-                Blogs
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/blogs')}}" class="nav-link {{$activeLink=='blogs'?'active':''}}">
+            <i class="nav-icon fas fa-blog"></i>
+            <p>Blogs</p>
+          </a>
+        </li>
 
-            <a href="{{url('/admin/menus')}}" class="nav-link {{$activeLink=='menus' || $activeLink=='menuitems'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-box"></i>
-              <p>
-                Menu
-              </p>
-            </a>
-            
-            <a href="{{url('/admin/setting')}}" class="nav-link {{$activeLink=='setting'?'active':''}}">
-              <i class="nav-icon fas fa-solid fa-cog"></i>
-              <p>
-                Settings
-              </p>
-            </a>
+        <li class="nav-item">
+          <a href="{{url('/admin/services')}}" class="nav-link {{$activeLink=='services'?'active':''}}">
+            <i class="nav-icon fas fa-concierge-bell"></i>
+            <p>Services</p>
+          </a>
+        </li>
 
-            <a href="{{url('/logout')}}" class="nav-link">
-              <i class="nav-icon fas fa-sign-out-alt"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+        <li class="nav-item">
+          <a href="{{url('/admin/menus')}}" class="nav-link {{$activeLink=='menus' || $activeLink=='menuitems'?'active':''}}">
+            <i class="nav-icon fas fa-bars"></i>
+            <p>Menu</p>
+          </a>
+        </li>
 
-  <div class="content-wrapper">
+        <li class="nav-item">
+          <a href="{{url('/admin/setting')}}" class="nav-link {{$activeLink=='setting'?'active':''}}">
+            <i class="nav-icon fas fa-cogs"></i>
+            <p>Settings</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{url('/logout')}}" class="nav-link">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+
+
+<div class="content-wrapper">
+    <!-- Flash Message -->
+    @if(session('success'))
+        <div class="alert alert-success m-3">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Main content -->
     @yield('content')
     <!-- /.content -->
-  </div>
+</div>
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
 

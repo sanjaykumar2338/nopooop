@@ -80,7 +80,7 @@ class FaqController extends Controller
         $blog->title = $request->input('title');
         $blog->description = $request->input('description');
         $blog->save();
-        return redirect('/admin/faq')->with('success');
+        return redirect('/admin/faq')->with('success','Faq created successfully');
     }
 
     public function update_order(Request $request){
@@ -147,7 +147,7 @@ class FaqController extends Controller
         $blog->title = $request->input('title');
         $blog->description = $request->input('description');
         $blog->update();
-        return redirect('/admin/faq')->with('success');
+        return redirect('/admin/faq')->with('success','Faq updated successfully');
     }
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\ServicesController;
 
 use App\Http\Controllers\CustomForgotPasswordController;
 use App\Http\Controllers\Subscriptions\PaymentController;
@@ -75,6 +76,16 @@ Route::group(['prefix' => 'admin','middleware' => 'check.auth'], function () {
     Route::get('blogs/moderate/{id}', [BlogsController::class, 'moderate']);
     Route::get('blogs/moderate/changestatus/{id}/{status}', [BlogsController::class, 'changestatus']);
 
+    Route::get('services', [ServicesController::class, 'index']);
+    Route::post('/services', [ServicesController::class, 'store'])->name('admin.services.store');
+    Route::post('/services/update/{id}', [ServicesController::class, 'update']);
+    Route::get('/services/remove/{id}', [ServicesController::class, 'destroy']);
+    Route::get('/services/edit/{id}', [ServicesController::class, 'edit']);
+    Route::get('services/{product}', [ServicesController::class, 'show']);
+    Route::get('services/add/new', [ServicesController::class, 'create']);
+    Route::get('services/moderate/{id}', [ServicesController::class, 'moderate']);
+    Route::get('services/moderate/changestatus/{id}/{status}', [ServicesController::class, 'changestatus']);
+
     //pages
     Route::get('pages', [PagesController::class, 'index']);
     Route::post('/pages', [PagesController::class, 'store'])->name('admin.pages.store');
@@ -130,7 +141,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/p/{slug}', [App\Http\Controllers\HomeController::class, 'displaypage']);
 Route::get('/blog/{slug}', [App\Http\Controllers\HomeController::class, 'displayblog']);
-
+Route::get('/service/{slug}', [App\Http\Controllers\HomeController::class, 'displayservice']);
+Route::post('/subscribe-newsletter', [App\Http\Controllers\HomeController::class, 'subscribeNewsletter'])->name('subscribe.newsletter');
 
 Route::post('/save_review', [App\Http\Controllers\HomeController::class, 'save_review'])->name('save_review');
 Route::get('/get_images', [App\Http\Controllers\HomeController::class, 'get_images'])->name('get_images');
