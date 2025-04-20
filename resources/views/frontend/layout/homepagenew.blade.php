@@ -16,6 +16,16 @@
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
       <link rel="stylesheet" href="{{url('/')}}/frontviewassest/css/slick.css">
       <link rel="stylesheet" href="{{url('/')}}/frontviewassest/css/slick-theme.css">
+
+      @php
+         $logo = getSetting('logo');
+         $faviconPath = $logo && file_exists(public_path('storage/' . $logo))
+               ? asset('storage/' . $logo)
+               : url('/frontviewassest/images/logo.png');
+      @endphp
+
+      <link rel="icon" type="image/png" href="{{ $faviconPath }}" />
+
    </head>
    <body>
       <div class="mobile-bar">
@@ -79,8 +89,8 @@
                      @endforeach
                   </ul>
                   </div>
-                  <div class="get-btn">
-                     <a href="#" class="common-button">Get a Quote!</a>
+                  <div class="get-btn text-center">
+                     <a href="{{ route('quote.form') }}" class="common-button">Get a Quote!</a>
                   </div>
                </div>
             </nav>

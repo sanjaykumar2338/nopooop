@@ -48,6 +48,8 @@ Route::group(['prefix' => 'admin','middleware' => 'check.auth'], function () {
     Route::get('/customer/delete/{id}', [AdminController::class, 'customer_delete']);
     Route::get('/contact/delete/{id}', [AdminController::class, 'contact_delete']);
     Route::post('/cancel-subscription/{id}', [AdminController::class, 'cancelSubscription'])->name('cancel.subscription');
+    Route::get('quotes', [\App\Http\Controllers\Admin\QuoteController::class, 'index'])->name('admin.quotes.index');
+    Route::get('newsletter-subscribers', [\App\Http\Controllers\Admin\NewsletterController::class, 'index'])->name('admin.newsletter.index');
 
     Route::get('menus/', [MenuController::class, 'index'])->name('menus.index');
     Route::get('menus/create', [MenuController::class, 'create'])->name('menus.create');
@@ -141,8 +143,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/p/{slug}', [App\Http\Controllers\HomeController::class, 'displaypage']);
 Route::get('/blog/{slug}', [App\Http\Controllers\HomeController::class, 'displayblog']);
-Route::get('/service/{slug}', [App\Http\Controllers\HomeController::class, 'displayservice']);
+Route::get('/areas/{slug}', [App\Http\Controllers\HomeController::class, 'displayservice']);
 Route::post('/subscribe-newsletter', [App\Http\Controllers\HomeController::class, 'subscribeNewsletter'])->name('subscribe.newsletter');
+
+Route::get('/get-quote', [App\Http\Controllers\QuoteController::class, 'showForm'])->name('quote.form');
+Route::post('/get-quote', [App\Http\Controllers\QuoteController::class, 'store'])->name('quote.store');
 
 Route::post('/save_review', [App\Http\Controllers\HomeController::class, 'save_review'])->name('save_review');
 Route::get('/get_images', [App\Http\Controllers\HomeController::class, 'get_images'])->name('get_images');

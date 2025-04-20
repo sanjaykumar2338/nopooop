@@ -23,7 +23,9 @@
                         <p class="text-muted">
                             {{ \Illuminate\Support\Str::words(strip_tags($service->description), 20, '...') }}
                         </p>
-                        <a href="{{ url('service/' . $service->slug) }}" class="btn btn-sm btn-primary mt-auto">Learn More</a>
+                        <div style="text-align: center; margin-top: 15px;margin-left: 102px;">
+                            <a href="{{ url('areas/' . $service->slug) }}" class="common-button">Learn More</a>
+                        </div>
                     </div>
                 </div>
             @endforeach

@@ -23,7 +23,7 @@ $page = Pages::where('slug', 'homepage')->first();
                   <h2>New Customers</h2>
                </div>
                <p>Get your first service free of charge if they sign up for anyTier package for1 month. Monthly charges are based on Tier chosen. All charges subject to taxes. If no Tier is chosen the charge for a 1 me visit $45.50</p>
-               <div class="btn-bx"><a class="common-button" href="#">Book Now! </a></div>
+               <div class="btn-bx"><a class="common-button" href="/get-quote">Book Now! </a></div>
             </div>
          </div>
       </div>
@@ -189,7 +189,7 @@ $page = Pages::where('slug', 'homepage')->first();
       </div>
       <ul>
         @foreach(\App\Models\Services::all() as $row)
-            <li><a href="/service/{{$row->slug}}">{{$row->title}}</a></li>
+            <li><a href="/areas/{{$row->slug}}">{{$row->title}}</a></li>
         @endforeach
       </ul>
    </div>

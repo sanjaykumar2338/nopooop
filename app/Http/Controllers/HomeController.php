@@ -76,6 +76,8 @@ class HomeController extends Controller
         } elseif ($slug == 'blogs') {
             $blogs = Blogs::latest()->paginate(5);
             return view('frontend.pages.blog', compact('page', 'blogs'));
+        } elseif ($slug == 'homepage') {
+            return redirect('/');
         } elseif ($slug == 'proudly-serving-south-carolina-your-local-dog-waste-removal-experts') {
             $services = Services::latest()->get();
             return view('frontend.pages.service', compact('page', 'services'));
